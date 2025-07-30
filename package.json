@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "Marstrx",
-  "license": "ISC",
+  "license": "MIT",
   "description": "building an api and using postman for test",
   "github" :"https://github.com/marstrx",
   "dependencies": {
