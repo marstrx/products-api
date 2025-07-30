@@ -1,6 +1,6 @@
 const Product = require("../models/product");
 
-
+// fetch all products
 const getAllProducts = async(req,res)=>{
     try {
         const products = await Product.find({});
@@ -26,7 +26,7 @@ const getAllProducts = async(req,res)=>{
     }
 }
 
-
+//  add new product
 const AddNewProduct = async(req,res)=>{
     try {
         const newProduct = req.body;
@@ -52,10 +52,23 @@ const AddNewProduct = async(req,res)=>{
     }
 }
 
-
+//  fetch single product by id
 const getSingleProductById = async(req,res)=>{
     try {
-        
+        const productId = req.params.id ;
+        const fetchProduct = await Product.findById(productId);
+        if(fetchProduct){
+            res.status(200).json({
+                success:true,
+                message :"product fetched successfully",
+                data : fetchProduct
+            })
+        }else{
+            res.status(404).json({
+                success:false,
+                message :"product not found"
+            })
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -94,5 +107,6 @@ const deleteSingleProductById = async(req,res)=>{
 
 module.exports = {
     getAllProducts,
-    AddNewProduct
+    AddNewProduct,
+    getSingleProductById
 }
