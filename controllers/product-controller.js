@@ -81,7 +81,21 @@ const getSingleProductById = async(req,res)=>{
 
 const updateSingleProductById = async(req,res)=>{
     try {
-        
+        const productId = req.params.id ;
+        const updateData = req.body ;
+        const updateProduct = await Product.findByIdAndUpdate(productId ,updateData ,{new :true})
+        if(updateProduct){
+            res.status(200).json({
+                success :true,
+                message :"product updated successfully",
+                updateProduct
+            })
+        }else{
+            res.status(404).json({
+                success:false,
+                message :"no data provided"
+            })
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -122,5 +136,6 @@ module.exports = {
     getAllProducts,
     AddNewProduct,
     getSingleProductById,
-    deleteSingleProductById
+    deleteSingleProductById,
+    updateSingleProductById
 }
