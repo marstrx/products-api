@@ -1,5 +1,7 @@
 const User = require("../models/auth");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 
 const registerController = async (req,res)=>{
     try {
@@ -57,7 +59,7 @@ const loginController = async(req,res)=>{
         const isExists = await User.findOne({email});
 
         if(!isExists){
-            return res.status(404).json({
+             res.status(404).json({
                 success :false,
                 message :"this user not found 404"
             })
@@ -65,15 +67,26 @@ const loginController = async(req,res)=>{
         // check if the password is match
         const isMatch =await bcrypt.compare(password ,isExists.password);
         if(!isMatch){
-            return res.status(401).json({
+             res.status(401).json({
                 success :false,
                 message :"invalid password"
             })
         }
 
+        // create access token
+        const accessToken = jwt.sign({
+            userId : isExists._id,
+            username :isExists.username,
+            email :isExists.email,
+            role :isExists.role
+        },process.env.JWT_SECRET_CODE,{
+            expiresIn :"30m"
+        })
+
         res.status(200).json({
             success :true,
-            message :`hi ${isExists.username} welcome back`
+            message :`hi ${isExists.username} welcome back`,
+            accessToken
         })
     } catch (error) {
         console.error(error);
