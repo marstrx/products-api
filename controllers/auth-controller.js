@@ -50,9 +50,31 @@ const registerController = async (req,res)=>{
     }
 }
 
-const loginController = async =(req,res)=>{
+const loginController = async(req,res)=>{
      try {
-        
+        const {email ,password} = req.body;
+        // check if the user exists in dbs
+        const isExists = await User.findOne({email});
+
+        if(!isExists){
+            return res.status(404).json({
+                success :false,
+                message :"this user not found 404"
+            })
+        }
+        // check if the password is match
+        const isMatch =await bcrypt.compare(password ,isExists.password);
+        if(!isMatch){
+            return res.status(401).json({
+                success :false,
+                message :"invalid password"
+            })
+        }
+
+        res.status(200).json({
+            success :true,
+            message :`hi ${isExists.username} welcome back`
+        })
     } catch (error) {
         console.error(error);
         res.status(500).json({

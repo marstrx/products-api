@@ -8,7 +8,7 @@ const {
 
 
 authRoutes.post("/register" , registerController);
-// authRoutes.post("/login");
+authRoutes.post("/login" ,loginController);
 
 
 module.exports= authRoutes ;
