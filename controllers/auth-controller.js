@@ -86,6 +86,8 @@ const loginController = async(req,res)=>{
         res.status(200).json({
             success :true,
             message :`hi ${isExists.username} welcome back`,
+            ip: req.ip,
+            device :req.headers["user-agent"],
             accessToken
         })
     } catch (error) {
