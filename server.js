@@ -5,6 +5,7 @@ const connectDb = require("./database/db");
 const productRouter = require("./routes/products-routes");
 const authRoutes = require("./routes/auth-routes");
 const homeRouter = require("./routes/home-routes");
+const dashboardRouter = require("./routes/dashboard-routes");
 
 
 app.use(express.json());
@@ -19,6 +20,8 @@ app.use("/api/products" ,productRouter);
 app.use("/api/auth" , authRoutes);
 // home route
 app.use("/api/home" ,homeRouter);
+// dashboard routes
+app.use("/api/dashboard" ,dashboardRouter);
 
 app.listen(process.env.PORT ,()=>{
     console.log("server is running on port ",process.env.PORT);
