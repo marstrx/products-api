@@ -1,9 +1,9 @@
 const express = require("express");
 const homeController = require("../controllers/home-controller");
 const homeRouter = express.Router();
+const authMiddleware = require("../middleware/auth-middleware");
 
 
+homeRouter.get("/welcome" ,authMiddleware,homeController);
 
-homeRouter.get("/welcome" ,homeController);
-
-module.exports = homeRouter ;
+module.exports = homeRouter ; 
