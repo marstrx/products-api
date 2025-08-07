@@ -1,6 +1,8 @@
+require("dotenv").config();
 const User = require("../models/auth");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const secretCode = process.env.JWT_SECRET_CODE;
 
 
 const registerController = async (req,res)=>{
@@ -79,7 +81,7 @@ const loginController = async(req,res)=>{
             username :isExists.username,
             email :isExists.email,
             role :isExists.role
-        },process.env.JWT_SECRET_CODE,{
+        },secretCode,{
             expiresIn :"30m"
         })
 
