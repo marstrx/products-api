@@ -6,6 +6,7 @@ const productRouter = require("./routes/products-routes");
 const authRoutes = require("./routes/auth-routes");
 const homeRouter = require("./routes/home-routes");
 const dashboardRouter = require("./routes/dashboard-routes");
+const uploadFileRoutes = require("./routes/upload-files");
 
 
 app.use(express.json());
@@ -22,6 +23,8 @@ app.use("/api/auth" , authRoutes);
 app.use("/api/home" ,homeRouter);
 // dashboard routes
 app.use("/api/dashboard" ,dashboardRouter);
+// upload files
+app.use("/api/files" ,uploadFileRoutes);
 
 app.listen(process.env.PORT ,()=>{
     console.log("server is running on port ",process.env.PORT);
